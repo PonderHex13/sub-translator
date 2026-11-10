@@ -1,0 +1,80 @@
+# Common English = Slovenian glossary, for any show (shared by all series)
+# Same text on both sides = keep unchanged. Matching ignores case.
+# A show's own glossary.txt overrides entries here with the same English term.
+# Slovenian terms are a first draft, please review and correct.
+
+# --- Forms of address ---
+Mr. = g.
+Ms. = ga.
+Mrs. = ga.
+Dr. = dr.
+
+# --- Courtroom terms ---
+your honor = vaša milost 
+your honors = vaše milost
+objection = ugovor
+objection sustained = ugovor sprejet
+sustained = ugovor sprejet
+overruled = ugovor zavrnjen
+withdrawn = umaknjeno
+approach the bench = pristopite
+the bench = klop
+jury = porota
+verdict = razsodba
+defendant = obtoženi
+plaintiff = tožnik
+deposition = zaslišanje pred glavno obravnavo
+settlement = poravnava
+settlement conference = poravnalna konferenca
+counsel = zagovornik
+attorney = odvetnik
+lawyer = odvetnik
+client = stranka
+closing argument = sklepni nagovor
+opening statement = uvodni nagovor
+motion = predlog
+subpoena = sodni poziv
+witness = priča
+trial = sojenje
+case = primer
+court = sodišče
+judge = sodnik
+Supreme Court = vrhovno sodišče
+not guilty = nedolžen
+continuance = preložitev obravnave
+hearing = obravnava
+
+# --- Well-known places and proper nouns ---
+Boston = Boston
+New York = New York
+Washington = Washington
+Chicago = Čikago
+London = London
+Tokyo = Tokio
+Texas = Teksas
+America = Amerika
+Harvard = Harvard
+FBI = FBI
+Christmas = božič
+
+# --- Everyday phrases and recurring error fixes ---
+correspondence = korespondenca
+burn = zažgati
+burned = zažgali
+parking pass = parkirno dovoljenje
+item one = prva točka
+item two = druga točka
+item three = tretja točka
+what the hell = kaj za vraga
+lock and load = pripravite se
+staff meeting = sestanek osebja
+bigotry = nestrpnost
+prejudice = predsodek
+excuse me = oprostite
+I beg your pardon = prosim
+I'm sorry = oprostite
+what do you mean = kaj misliš s tem
+I have no idea = nimam pojma
+cheers = na zdravje
+all right = v redu
+uh = em
