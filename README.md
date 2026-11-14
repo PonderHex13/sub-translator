@@ -88,5 +88,4 @@ python3 -m unittest discover -s tools -v
 
 ## AI use
 
-AI tools assisted in creating this project. The maintainer is responsible for
-its contents and ongoing maintenance.
+AI tools were used in creating this project.
