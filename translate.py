@@ -23,7 +23,7 @@ DESCRIPTION = f"""\
 Translate English .srt subtitles into Slovenian in one command.
 
 For each input file NAME.srt the tool translates it with {MODEL} (served by
-LM Studio), fixes the layout (at most two lines of {MAX_LINE} characters per block) and writes
+an OpenAI-compatible server), fixes the layout (at most two lines of {MAX_LINE} characters per block) and writes
 a single file NAME{OUT_SUFFIX}.srt next to the input. Block numbers and timestamps are never changed.
 Temporary progress files are removed when an episode is done. An interrupted
 run resumes where it stopped. Episodes whose output exists are skipped (-f to redo).
@@ -256,7 +256,7 @@ def batch_ranges(src, size, sentence_batches=False):
         start = end
 
 
-# ---------- LM Studio ----------
+# ---------- model server ----------
 
 def models_url(url):
     return url.rsplit("/chat/completions", 1)[0] + "/models"
@@ -268,14 +268,14 @@ def check_model(url, model):
         r.raise_for_status()
         ids = [m["id"] for m in r.json().get("data", [])]
     except (requests.RequestException, ValueError) as e:
-        sys.exit(f"Cannot reach LM Studio at {models_url(url)}: {e}")
+        sys.exit(f"Cannot reach the model server at {models_url(url)}: {e}")
     if model not in ids:
-        sys.exit(f"Model '{model}' is not available in LM Studio. Download/load it, or pass --model.\n"
+        sys.exit(f"Model '{model}' is not available on the model server. Download/load it, or pass --model.\n"
                  f"Available: {', '.join(ids) or 'none'}")
 
 
 def post_with_retry(url, timeout, payload, wait_total=900, pause=30):
-    """POST to LM Studio; if the server is down or restarting, wait and retry for up to wait_total seconds."""
+    """POST to the model server; if the server is down or restarting, wait and retry for up to wait_total seconds."""
     start = time.time()
     while True:
         try:
@@ -292,7 +292,7 @@ def post_with_retry(url, timeout, payload, wait_total=900, pause=30):
             err = e
         if time.time() - start > wait_total:
             raise err
-        print(f"  LM Studio problem ({type(err).__name__}); waiting {pause}s and retrying...",
+        print(f"  Model server problem ({type(err).__name__}); waiting {pause}s and retrying...",
               file=sys.stderr, flush=True)
         time.sleep(pause)
 
@@ -390,9 +390,9 @@ def translate_blocks(a, src, prog_path, glossary):
                     # usually the prompt exceeded the model's context: split the batch
                     print(f"  400 from server ({e.response.text[:120]!r}), splitting batch", file=sys.stderr)
                     break
-                sys.exit(f"LM Studio request failed: {e}")
+                sys.exit(f"Model server request failed: {e}")
             except requests.RequestException as e:
-                sys.exit(f"LM Studio request failed: {e}")
+                sys.exit(f"Model server request failed: {e}")
             if tr:
                 break
         if tr:
@@ -588,8 +588,8 @@ def main():
                     help="glossary file 'English = Slovenian' (default: glossary.txt next to each input)")
     ap.add_argument("-n", "--limit", type=int, default=0, metavar="N",
                     help="only translate the first N blocks (for testing)")
-    ap.add_argument("--model", default=MODEL, help="LM Studio model id (default: %(default)s)")
-    ap.add_argument("--url", default=URL, help="LM Studio chat completions URL (default: %(default)s)")
+    ap.add_argument("--model", default=MODEL, help="model id as listed by the server (default: %(default)s)")
+    ap.add_argument("--url", default=URL, help="OpenAI-compatible chat completions URL (default: %(default)s)")
     ap.add_argument("--timeout", type=int, default=600, help="seconds per request (default: 600)")
     ap.add_argument("--temperature", type=float, default=TEMPERATURE,
                     help="sampling temperature for translation (default: %(default)s)")

@@ -1,15 +1,21 @@
 # Subtitle translator
 
 `translate.py` translates English SRT subtitles into Slovenian using a model
-served by LM Studio. It calls LM Studio's local API using the OpenAI-compatible
-`/v1/chat/completions` endpoint; it does not call OpenAI's hosted API.
+served by any OpenAI-compatible server (for example LM Studio or Lemonade). It
+calls the `/v1/chat/completions` endpoint and the matching `/models` endpoint
+of the URL you give it; it does not call OpenAI's hosted API.
+
+The tool can be adapted to other target languages by changing the prompts, the
+output suffix, the script check, the glossaries and the model. Slovenian is
+currently built into `translate.py`.
 
 ## Setup
 
 - Python 3
 - `requests` (`python3 -m pip install requests`)
-- LM Studio running locally with a model loaded and its local API enabled
-  (default address: `http://localhost:1234`)
+- An OpenAI-compatible server running locally with the model available
+  (default: LM Studio at `http://localhost:1234`; Lemonade, for example, uses
+  `http://localhost:13305/api/v1/chat/completions`)
 
 ## Usage
 
@@ -45,12 +51,15 @@ Defaults:
 | `-f`, `--force` | Off (existing outputs are skipped) |
 | `--sentence-batches` | Off |
 
-To use another model or OpenAI-compatible server, pass its model ID and
-chat-completions URL:
+To use another model or server, pass its model ID (as listed by the server's
+`/models` endpoint) and chat-completions URL:
 
 ```bash
 python3 translate.py --model MODEL --url http://localhost:1234/v1/chat/completions input.srt
 ```
+
+Progress files record the model ID, so an interrupted episode resumes only
+with the same `--model`.
 
 Run `python3 translate.py --help` for all options, including batching and
 generation settings.

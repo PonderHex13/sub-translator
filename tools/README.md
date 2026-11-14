@@ -29,7 +29,7 @@ Use `--help` to see the full command usage.
 
 The `test_translate_*.py` files are unit tests for batching and resume
 validation, translation review checks, and model-response validation and retry
-behavior. They use mocked model responses, so no LM Studio server is needed.
+behavior. They use mocked model responses, so no model server is needed.
 Run all tests from the project root:
 
 ```bash
