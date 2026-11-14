@@ -18,11 +18,15 @@ class BatchValidationTest(unittest.TestCase):
     def test_valid_and_reordered_blocks(self):
         self.assertEqual(self.translate("2| dva\n1| ena\n"), {1: "ena", 2: "dva"})
 
+    def test_extra_context_blocks_are_ignored(self):
+        self.assertEqual(self.translate("1| ena\n2| dva\n3| tri"), {1: "ena", 2: "dva"})
+        self.assertEqual(self.translate("0| nič\n2| dva\n1| ena\n3| tri"), {1: "ena", 2: "dva"})
+
     def test_invalid_responses_are_rejected(self):
         responses = [
             "1| ena\n1| druga\n2| dva",
-            "1| ena\n2| dva\n3| extra",
             "1| ena",
+            "2| dva\n3| tri",  # an expected block is missing, whatever else was returned
             "1| ena\n2| ",
             "1| ena\n2| dva\nadditional commentary",
             "1| ena\n2| два",
@@ -33,7 +37,7 @@ class BatchValidationTest(unittest.TestCase):
 
     def test_retry_and_split_after_invalid_responses(self):
         args = SimpleNamespace(model="test", context=0, blocks=2, temperature=0)
-        responses = ["1| ena\n1| ena\n2| dva", "1| ena\n2| dva\n3| tri",
+        responses = ["1| ena\n1| ena\n2| dva", "1| ena\n2| dva\nadditional commentary",
                      "1| ena", "2| dva"]
         with tempfile.TemporaryDirectory() as directory:
             with patch("translate.ask", side_effect=responses) as ask:

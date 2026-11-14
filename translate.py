@@ -4,16 +4,18 @@ import json
 import os
 import re
 import sys
+import threading
 import time
+from concurrent.futures import ThreadPoolExecutor
 
 import requests
 
 MODEL = "gams3-12b-instruct@q6_k"
 URL = "http://localhost:1234/v1/chat/completions"
-BATCH = 5
+BATCH = 10
 CONTEXT = 2
 MAX_LINE = 42
-TOKENS_PER_BLOCK = 160  # a normal block needs about 30, so 5 blocks allow 800 tokens
+TOKENS_PER_BLOCK = 160  # a normal block needs about 30, so the reply limit is generous
 TEMPERATURE = 0
 RETRY_TEMPERATURE = 0.5  # a rejected batch must be retried differently, 0 would repeat the same output
 OUT_SUFFIX = ".sl"
@@ -42,6 +44,7 @@ examples:
   %(prog)s subs/episode*.srt
   %(prog)s -f subs/episode.srt
   %(prog)s -n 30 subs/episode.srt   (quick test, first 30 blocks)
+  %(prog)s -j 3 subs/episode.srt    (3 parallel requests; the server needs 3 slots)
 
 The glossary is read from glossary.txt next to the input file unless -g is given. It is combined with
 glossary_common.txt (next to this script); entries in the show glossary win.
@@ -334,8 +337,7 @@ def translate_batch(a, items, before, after, hints, temperature):
             return None
         number = int(m.group(1))
         if number not in expected:
-            print(f"  Invalid batch response: unexpected block {number}", file=sys.stderr)
-            return None
+            continue  # the model also translated a context block: ignore it, expected blocks are checked below
         if number in got:
             print(f"  Invalid batch response: duplicate block {number}", file=sys.stderr)
             return None
@@ -366,7 +368,10 @@ def translate_blocks(a, src, prog_path, glossary):
             done = {int(k): v for k, v in saved["done"].items()}
             print(f"Resuming: {len(done)} blocks already translated")
 
-    def save():
+    lock = threading.Lock()  # guards done, failed and the progress file when --jobs > 1
+    stop = threading.Event()
+
+    def save():  # the caller holds the lock
         with open(prog_path, "w", encoding="utf-8") as f:
             json.dump({"model": a.model, "total": len(src), "done": done,
                        "sentence_batches": getattr(a, "sentence_batches", False)}, f, ensure_ascii=False)
@@ -374,6 +379,8 @@ def translate_blocks(a, src, prog_path, glossary):
     failed = []
 
     def run(lo, hi):
+        if stop.is_set():
+            return
         todo = [(i + 1, src[i]) for i in range(lo, hi) if src[i] and (i + 1) not in done]
         if not todo:
             return
@@ -396,19 +403,42 @@ def translate_blocks(a, src, prog_path, glossary):
             if tr:
                 break
         if tr:
-            done.update(tr)
-            save()
+            with lock:
+                done.update(tr)
+                save()
         elif hi - lo > 1:
             mid = (lo + hi) // 2
             run(lo, mid)
             run(mid, hi)
         else:
-            failed.append(lo + 1)
+            with lock:
+                failed.append(lo + 1)
 
     t0 = time.time()
-    for lo, hi in batch_ranges(src, a.blocks, getattr(a, "sentence_batches", False)):
+    finished = 0
+
+    def batch(lo, hi):
+        nonlocal finished
         run(lo, hi)
-        print(f"{hi}/{len(src)} blocks ({time.time() - t0:.0f}s)", flush=True)
+        with lock:
+            finished += hi - lo
+            print(f"{finished}/{len(src)} blocks ({time.time() - t0:.0f}s)", flush=True)
+
+    ranges = list(batch_ranges(src, a.blocks, getattr(a, "sentence_batches", False)))
+    jobs = max(1, getattr(a, "jobs", 1))
+    if jobs == 1:
+        for lo, hi in ranges:
+            batch(lo, hi)
+    else:
+        pool = ThreadPoolExecutor(max_workers=jobs)
+        try:
+            for future in [pool.submit(batch, lo, hi) for lo, hi in ranges]:
+                future.result()  # re-raises a worker's fatal error (SystemExit) in the main thread
+        except BaseException:
+            stop.set()
+            pool.shutdown(wait=False, cancel_futures=True)
+            raise
+        pool.shutdown()
 
     final = {}
     prev_ended = True
@@ -419,7 +449,7 @@ def translate_blocks(a, src, prog_path, glossary):
         if out:
             final[i + 1] = out
             prev_ended = ends_sentence(out)
-    return final, failed
+    return final, sorted(failed)
 
 
 # ---------- step 2: layout ----------
@@ -488,7 +518,13 @@ def fix_layout(a, blocks, src, final):
 
 # ---------- per file ----------
 
+class InputError(Exception):
+    """An input file cannot be read; the file is skipped and the run ends with an error code."""
+
+
 def process_file(a, path, glossary_arg):
+    if not os.path.isfile(path):
+        raise InputError(f"{path}: file not found")
     base, ext = os.path.splitext(path)
     out_path = f"{base}{OUT_SUFFIX}{ext}"
     if base.endswith(OUT_SUFFIX) or re.search(r"_SLO(_fixed)?$", base):
@@ -504,8 +540,11 @@ def process_file(a, path, glossary_arg):
         print(f"Note: no glossary.txt found next to {path}", file=sys.stderr)
     glossary = merge_glossaries(glossary, load_glossary(COMMON_GLOSSARY) if os.path.exists(COMMON_GLOSSARY) else [])
 
-    with open(path, encoding="utf-8", errors="replace") as f:
-        blocks = parse_srt(f.read())
+    try:
+        with open(path, encoding="utf-8", errors="replace") as f:
+            blocks = parse_srt(f.read())
+    except OSError as e:
+        raise InputError(f"{path}: cannot read file ({e.strerror})") from e
     if a.limit:
         blocks = blocks[:a.limit]
     if not blocks:
@@ -597,20 +636,30 @@ def main():
     ap.add_argument("--top-k", type=int, default=None, help="top-k sampling (default: server setting)")
     ap.add_argument("-b", "--blocks", type=int, default=BATCH, metavar="N",
                     help="blocks translated per request (default: %(default)s)")
+    ap.add_argument("-j", "--jobs", type=int, default=1, metavar="N",
+                    help="parallel requests per file; use at most the server's slot count (default: %(default)s)")
     ap.add_argument("--sentence-batches", action="store_true",
                     help="experiment: choose sentence endings within two blocks of the target batch size")
     ap.add_argument("-c", "--context", type=int, default=CONTEXT, metavar="N",
                     help="context blocks sent before and after each batch (default: %(default)s)")
     a = ap.parse_args()
-    if a.blocks < 1 or a.context < 0:
-        ap.error("--blocks must be at least 1 and --context 0 or more")
+    if a.blocks < 1 or a.context < 0 or a.jobs < 1:
+        ap.error("--blocks and --jobs must be at least 1 and --context 0 or more")
     a.max_line = MAX_LINE
-
+    if a.glossary and not os.path.isfile(a.glossary):
+        ap.error(f"glossary file not found: {a.glossary}")
     if a.model != MODEL:
         print(f"Warning: using {a.model}; the prompt and settings were tuned for {MODEL}.", file=sys.stderr)
     check_model(a.url, a.model)
+    errors = 0
     for path in a.input:
-        process_file(a, path, a.glossary)
+        try:
+            process_file(a, path, a.glossary)
+        except InputError as e:
+            print(f"Error: {e}", file=sys.stderr)
+            errors += 1
+    if errors:
+        sys.exit(f"{errors} input file(s) could not be read.")
 
 
 if __name__ == "__main__":

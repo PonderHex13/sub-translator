@@ -1,0 +1,421 @@
+1
+00:00:01,000 --> 00:00:03,000
+Good morning, everyone.
+
+2
+00:00:05,000 --> 00:00:07,000
+Please sit down.
+
+3
+00:00:09,000 --> 00:00:11,000
+We have a lot to cover today.
+
+4
+00:00:13,000 --> 00:00:15,000
+Mr. Hale, are you ready?
+
+5
+00:00:17,000 --> 00:00:19,000
+Yes, Your Honor.
+I've been ready for weeks.
+
+6
+00:00:21,000 --> 00:00:23,000
+Then call your first witness.
+
+7
+00:00:25,000 --> 00:00:27,000
+The defense calls Dr. Marlow.
+
+8
+00:00:29,000 --> 00:00:31,000
+Doctor, please state your name.
+
+9
+00:00:33,000 --> 00:00:35,000
+Eleanor Marlow.
+
+10
+00:00:37,000 --> 00:00:39,000
+And what do you do for a living?
+
+11
+00:00:41,000 --> 00:00:43,000
+I'm a surgeon at St. Anne's Hospital.
+
+12
+00:00:45,000 --> 00:00:47,000
+How long have you worked there?
+
+13
+00:00:49,000 --> 00:00:51,000
+Twelve years this October.
+
+14
+00:00:53,000 --> 00:00:55,000
+Did you treat the patient
+on the night in question?
+
+15
+00:00:57,000 --> 00:00:59,000
+I did.
+
+16
+00:01:01,000 --> 00:01:03,000
+Tell us what happened.
+
+17
+00:01:05,000 --> 00:01:07,000
+He came in around midnight.
+
+18
+00:01:09,000 --> 00:01:11,000
+He was pale and short of breath.
+
+19
+00:01:13,000 --> 00:01:15,000
+His wife said he'd collapsed
+at dinner.
+
+20
+00:01:17,000 --> 00:01:19,000
+Did she say anything else?
+
+21
+00:01:21,000 --> 00:01:23,000
+Objection. Hearsay.
+
+22
+00:01:25,000 --> 00:01:27,000
+I'll allow it.
+
+23
+00:01:29,000 --> 00:01:31,000
+She said he'd been
+feeling dizzy for days.
+
+24
+00:01:33,000 --> 00:01:35,000
+And did you run any tests?
+
+25
+00:01:37,000 --> 00:01:39,000
+We ordered blood work
+and a CT scan.
+
+26
+00:01:41,000 --> 00:01:43,000
+What did the results show?
+
+27
+00:01:45,000 --> 00:01:47,000
+A blockage in the main artery.
+
+28
+00:01:49,000 --> 00:01:51,000
+That sounds serious.
+
+29
+00:01:53,000 --> 00:01:55,000
+It was. We operated immediately.
+
+30
+00:01:57,000 --> 00:01:59,000
+Thank you, Doctor.
+No further questions.
+
+31
+00:02:01,000 --> 00:02:03,000
+Ms. Reyes, your witness.
+
+32
+00:02:05,000 --> 00:02:07,000
+Thank you, Your Honor.
+
+33
+00:02:09,000 --> 00:02:11,000
+Dr. Marlow, you said
+you operated at once.
+
+34
+00:02:13,000 --> 00:02:15,000
+That's correct.
+
+35
+00:02:17,000 --> 00:02:19,000
+But the chart says
+the surgery began at 3:40.
+
+36
+00:02:21,000 --> 00:02:23,000
+That's more than three hours later.
+
+37
+00:02:25,000 --> 00:02:27,000
+We had to stabilize him first.
+
+38
+00:02:29,000 --> 00:02:31,000
+Or you were waiting for
+the senior surgeon to arrive.
+
+39
+00:02:33,000 --> 00:02:35,000
+That is not what happened.
+
+40
+00:02:37,000 --> 00:02:39,000
+Then what did happen?
+
+41
+00:02:41,000 --> 00:02:43,000
+[phone buzzing]
+
+42
+00:02:45,000 --> 00:02:47,000
+Sorry, Your Honor.
+I forgot to silence it.
+
+43
+00:02:49,000 --> 00:02:51,000
+Please do so now.
+
+44
+00:02:53,000 --> 00:02:55,000
+The delay was medical,
+not administrative.
+
+45
+00:02:57,000 --> 00:02:59,000
+I'd like to believe that, Doctor.
+
+46
+00:03:01,000 --> 00:03:03,000
+But the records say otherwise.
+
+47
+00:03:05,000 --> 00:03:07,000
+THIS COURT WILL COME TO ORDER.
+
+48
+00:03:09,000 --> 00:03:11,000
+Counsel, approach the bench.
+
+49
+00:03:13,000 --> 00:03:15,000
+Is there a problem, Your Honor?
+
+50
+00:03:17,000 --> 00:03:19,000
+Keep your questions
+to the point, Ms. Reyes.
+
+51
+00:03:21,000 --> 00:03:23,000
+Of course.
+
+52
+00:03:25,000 --> 00:03:27,000
+I'll rephrase.
+
+53
+00:03:29,000 --> 00:03:31,000
+Doctor, who authorized the delay?
+
+54
+00:03:33,000 --> 00:03:35,000
+Dr. Whitfield did.
+
+55
+00:03:37,000 --> 00:03:39,000
+The head of surgery.
+
+56
+00:03:41,000 --> 00:03:43,000
+Yes. He was in the building,
+but not in the room.
+
+57
+00:03:45,000 --> 00:03:47,000
+Interesting.
+
+58
+00:03:49,000 --> 00:03:51,000
+No further questions.
+
+59
+00:03:53,000 --> 00:03:55,000
+We'll take a fifteen-minute recess.
+
+60
+00:03:57,000 --> 00:03:59,000
+♪ [soft piano music] ♪
+
+61
+00:04:01,000 --> 00:04:03,000
+You did well in there.
+
+62
+00:04:05,000 --> 00:04:07,000
+Did I? She tore me apart.
+
+63
+00:04:09,000 --> 00:04:11,000
+She asked what she needed to ask.
+
+64
+00:04:13,000 --> 00:04:15,000
+Now we have to fix it.
+
+65
+00:04:17,000 --> 00:04:19,000
+How?
+
+66
+00:04:21,000 --> 00:04:23,000
+We find Whitfield
+before she does.
+
+67
+00:04:25,000 --> 00:04:27,000
+He won't talk to us.
+
+68
+00:04:29,000 --> 00:04:31,000
+Everyone talks eventually.
+
+69
+00:04:33,000 --> 00:04:35,000
+That's what worries me.
+
+70
+00:04:37,000 --> 00:04:39,000
+Call his office.
+Tell them it's urgent.
+
+71
+00:04:41,000 --> 00:04:43,000
+And if he refuses?
+
+72
+00:04:45,000 --> 00:04:47,000
+Then we subpoena him.
+
+73
+00:04:49,000 --> 00:04:51,000
+That could take days.
+
+74
+00:04:53,000 --> 00:04:55,000
+We don't have days.
+We have until Friday.
+
+75
+00:04:57,000 --> 00:04:59,000
+Fine. I'll make the call.
+
+76
+00:05:01,000 --> 00:05:03,000
+Hello, this is Hale and Pierce.
+
+77
+00:05:05,000 --> 00:05:07,000
+We'd like to speak
+with Dr. Whitfield.
+
+78
+00:05:09,000 --> 00:05:11,000
+He's in a meeting right now.
+
+79
+00:05:13,000 --> 00:05:15,000
+Can you tell him it's about
+the Anderson case?
+
+80
+00:05:17,000 --> 00:05:19,000
+One moment, please.
+
+81
+00:05:21,000 --> 00:05:23,000
+[line clicking]
+
+82
+00:05:25,000 --> 00:05:27,000
+Dr. Whitfield will see you
+at five o'clock.
+
+83
+00:05:29,000 --> 00:05:31,000
+Thank you. We'll be there.
+
+84
+00:05:33,000 --> 00:05:35,000
+That was easier than I expected.
+
+85
+00:05:37,000 --> 00:05:39,000
+Too easy, if you ask me.
+
+86
+00:05:41,000 --> 00:05:43,000
+You always say that.
+
+87
+00:05:45,000 --> 00:05:47,000
+And I'm usually right.
+
+88
+00:05:49,000 --> 00:05:51,000
+Let's get some coffee first.
+
+89
+00:05:53,000 --> 00:05:55,000
+I need to think.
+
+90
+00:05:57,000 --> 00:05:59,000
+You never stop thinking.
+
+91
+00:06:01,000 --> 00:06:03,000
+It's a curse, really.
+
+92
+00:06:05,000 --> 00:06:07,000
+Do you have the file
+on the Anderson surgery?
+
+93
+00:06:09,000 --> 00:06:11,000
+It's in my bag.
+Eighty-two pages.
+
+94
+00:06:13,000 --> 00:06:15,000
+Did you read all of it?
+
+95
+00:06:17,000 --> 00:06:19,000
+Twice. Something doesn't add up.
+
+96
+00:06:21,000 --> 00:06:23,000
+What do you mean?
+
+97
+00:06:25,000 --> 00:06:27,000
+The anesthesia log is missing
+forty minutes.
+
+98
+00:06:29,000 --> 00:06:31,000
+Missing, or just not signed?
+
+99
+00:06:33,000 --> 00:06:35,000
+Missing. Completely blank.
+
+100
+00:06:37,000 --> 00:06:39,000
+Then we have our answer.
