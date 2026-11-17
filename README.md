@@ -99,7 +99,10 @@ generation settings.
 The script combines `glossary_common.txt` in the project directory with
 `glossary.txt` beside each subtitle file. Show-specific entries take
 precedence. Entries use one `English term = Slovenian translation` pair per
-line. Use `-g FILE` to specify a show glossary.
+line. Use `-g FILE` to specify a show glossary. For a starting point, copy
+`subs/glossary.example.txt` to `subs/glossary.txt` and edit it for your show.
+Files under `subs/` are ignored by Git except for this example, so your local
+subtitle files and show glossary stay out of commits.
 
 ## Other tools and tests
 

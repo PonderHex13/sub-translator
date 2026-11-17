@@ -1,0 +1,12 @@
+# Example show-specific glossary. Copy this file to glossary.txt and customize it.
+# Use one English term = Slovenian translation pair per line.
+# Same text on both sides keeps names unchanged.
+
+# Names and titles
+Captain Rowan = Captain Rowan
+Dr. Vale = dr. Vale
+
+# Show-specific terms
+the Council = Svet
+ancient oath = starodavna prisega
+red comet = rdeči komet

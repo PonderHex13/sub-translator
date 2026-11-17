@@ -1,5 +1,6 @@
 # Subtitles directory
-subs/
+subs/*
+!subs/glossary.example.txt
 # Python cache
 __pycache__/
 *.pyc
